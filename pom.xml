@@ -9,7 +9,7 @@
   <url>http://maven.apache.org</url>
   <dependencies>
     <dependency> 
-      <groupId>net.sourceforge.pinyin4j</groupId> 
+      <groupId>com.belerweb</groupId> 
       <artifactId>pinyin4j</artifactId> 
       <version>2.5.0</version> 
     </dependency>
