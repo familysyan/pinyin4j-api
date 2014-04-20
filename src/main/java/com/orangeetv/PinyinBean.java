@@ -1,6 +1,7 @@
 package com.orangeetv;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -23,11 +24,15 @@ public class PinyinBean implements Serializable {
 		HanyuPinyinOutputFormat format2 = new HanyuPinyinOutputFormat();
 		format2.setToneType(HanyuPinyinToneType.WITHOUT_TONE); 
 
-		return "{src:" + value + ",\ntone:" + getStringPinYin(value, format1) + ",\nnotone:" + getStringPinYin(value, format2) + "}";
+		return "['" + value + "','" + getStringPinYin(value, format1) + "','" + getStringPinYin(value, format2) + "']";
 	}
 
 	public void setValue(String value) {
-		this.value = value;
+		try {
+			this.value = new String(value.getBytes("iso-8859-1"),"utf-8") ;
+		} catch (UnsupportedEncodingException e) {
+		    this.value = "encoding_error";
+		}
 	}
 
 	public String getValue() {
@@ -40,7 +45,7 @@ public class PinyinBean implements Serializable {
 		try {
 			pinyin = PinyinHelper.toHanyuPinyinStringArray(c, format);
 		} catch (BadHanyuPinyinOutputFormatCombination e) {
-			e.printStackTrace();
+			return null;
 		}
 
 		// 如果c不是汉字，toHanyuPinyinStringArray会返回null
@@ -56,6 +61,9 @@ public class PinyinBean implements Serializable {
 		StringBuilder sb = new StringBuilder();
 		String tempPinyin = null;
 		for (int i = 0; i < str.length(); ++i) {
+			if (i != 0) {
+				sb.append(" ");
+			}
 			tempPinyin = getCharacterPinYin(str.charAt(i), format);
 			if (tempPinyin == null) {
 				// 如果str.charAt(i)非汉字，则保持原样
