@@ -26,7 +26,7 @@ public class PinyinBean implements Serializable {
 
     String value1 = getStringPinYin(value, format1);
     String value2 = getStringPinYin(value, format2);
-    if (value1 == value2) {
+    if (value1.equals(value2)) {
       value1 = value;
       value2 = value;
     }
