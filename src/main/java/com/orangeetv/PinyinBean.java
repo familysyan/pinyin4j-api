@@ -27,10 +27,10 @@ public class PinyinBean implements Serializable {
     String value1 = getStringPinYin(value, format1);
     String value2 = getStringPinYin(value, format2);
     if (value1 == value2) {
-      value = value1;
-      value = value2;
+      value1 = value;
+      value2 = value;
     }
-		String result = "{data: ['" + value + "','" + value1 + "','" + value2 + "']}";
+		String result = "['" + value + "','" + value1 + "','" + value2 + "']";
     return result;
 	}
 
