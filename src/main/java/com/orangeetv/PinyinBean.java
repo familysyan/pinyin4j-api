@@ -69,12 +69,10 @@ public class PinyinBean implements Serializable {
 				// 如果str.charAt(i)非汉字，则保持原样
 				sb.append(str.charAt(i));
 			} else {
-			  if (i != 0) {
-				  sb.append(" ");
-			  }
 				sb.append(tempPinyin);
+				sb.append(" ");
 			}
 		}
-		return sb.toString();
+		return sb.toString().trim();
 	}
 }
