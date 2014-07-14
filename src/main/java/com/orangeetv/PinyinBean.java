@@ -26,10 +26,6 @@ public class PinyinBean implements Serializable {
 
     String value1 = getStringPinYin(value, format1);
     String value2 = getStringPinYin(value, format2);
-    if (value1.equals(value2)) {
-      value1 = value;
-      value2 = value;
-    }
 		String result = "['" + value + "','" + value1 + "','" + value2 + "']";
     return result;
 	}
@@ -68,14 +64,14 @@ public class PinyinBean implements Serializable {
 		StringBuilder sb = new StringBuilder();
 		String tempPinyin = null;
 		for (int i = 0; i < str.length(); ++i) {
-			if (i != 0) {
-				sb.append(" ");
-			}
 			tempPinyin = getCharacterPinYin(str.charAt(i), format);
 			if (tempPinyin == null) {
 				// 如果str.charAt(i)非汉字，则保持原样
 				sb.append(str.charAt(i));
 			} else {
+			  if (i != 0) {
+				  sb.append(" ");
+			  }
 				sb.append(tempPinyin);
 			}
 		}
