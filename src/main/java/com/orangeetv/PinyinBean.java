@@ -24,14 +24,21 @@ public class PinyinBean implements Serializable {
 		HanyuPinyinOutputFormat format2 = new HanyuPinyinOutputFormat();
 		format2.setToneType(HanyuPinyinToneType.WITHOUT_TONE); 
 
-		return "['" + value + "','" + getStringPinYin(value, format1) + "','" + getStringPinYin(value, format2) + "']";
+    String value1 = getStringPinYin(value, format1);
+    String value2 = getStringPinYin(value, format2);
+    if (value1 == value2) {
+      value = value1;
+      value = value2;
+    }
+		String result = "{data: ['" + value + "','" + value1 + "','" + value2 + "']}";
+    return result;
 	}
 
 	public void setValue(String value) {
 		try {
 			this.value = new String(value.getBytes("iso-8859-1"),"utf-8") ;
 		} catch (UnsupportedEncodingException e) {
-		    this.value = "encoding_error";
+		  this.value = "encoding_error";
 		}
 	}
 
